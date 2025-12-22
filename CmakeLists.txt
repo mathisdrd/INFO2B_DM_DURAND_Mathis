@@ -1,0 +1,40 @@
+cmake_minimum_required(VERSION 3.20)
+
+project(
+    INFO2B_DM_DURAND_Mathis
+    VERSION 1.0
+    LANGUAGES CXX
+)
+
+# --------------------------------------------------------------------
+# Configuration C++
+# --------------------------------------------------------------------
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Warnings (ENS-friendly)
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# --------------------------------------------------------------------
+# Exécutable
+# --------------------------------------------------------------------
+add_executable(${PROJECT_NAME}
+    src/main.cpp
+    src/Vector.cpp
+    src/PriorityQueue.cpp
+)
+
+# --------------------------------------------------------------------
+# Includes
+# --------------------------------------------------------------------
+target_include_directories(${PROJECT_NAME}
+    PRIVATE
+        ${PROJECT_SOURCE_DIR}/header
+)
+
+# --------------------------------------------------------------------
+# End
+# --------------------------------------------------------------------
