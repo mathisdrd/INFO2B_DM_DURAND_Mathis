@@ -5,14 +5,19 @@
  * 22-12-2025
  */
 
-// Includes STL 
-#include <iostream>
-
+template<class T>
 class Container{
-    private:
-        int s; // Size
+    protected:
+        // Attributs de la classe
+        int s; // nombre d'éléments du container
 
     public:
+        // Constructeur et destructeur :
+        Container() = default; // Constructeur de la classe
+
+        virtual ~Container() = default; // Destructeur de la classe
+
+        // Méthodes de la classe
         virtual T& pop() = 0; // Retire un élément du container
 
         virtual bool push(const T& t) = 0; // Ajoute un élément au container
@@ -22,6 +27,4 @@ class Container{
         virtual int size() const = 0; // Retourne la taille du container
 
         virtual void print() const = 0; // Affiche le containter
-
-        virtual ~Container() = default; // Destructeur de la classe
-}
+};

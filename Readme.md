@@ -11,3 +11,9 @@ Cette précision permet au code ne pas compiler si on modifie par erreur un obje
 ## Question 2
 Le mot clé `virtual` précise que la méthode n'est pas implémentée et qu'elle devra l'être dans la classe fille, auquel cas elle sera également virtuelle et aucun objet de la classe fille ne pourra être créé.
 Il faut obligatoirement mettre le mot clé `virtual` avant la délcaration du destructeur de la classe abstraite mère afin d'éviter les fuites de données. Si une classe fille déclare une variable alloué dynamiquement, le destructeur de la classe mère (appelé si on a mis le mot clé `virtual`) ne détruira par cette variable allouée dynamiquement et on aura une fuite de mémoire.
+
+## Question 3
+L'utilisation d'un `unique_ptr` pour pointer sur les tableaux se justifie car lors de la copie, lorsque le pointeur sur le tableau sera détruit, la case mémoire associée sera détruite automatiquement et aucune perte de mémoire n'aura lieu.
+
+## Question 6
+Le passage par référence plutôt que par copie permet d'avoir un processus beaucoup plus rapide.
