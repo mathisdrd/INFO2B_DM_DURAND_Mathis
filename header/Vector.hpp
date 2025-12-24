@@ -5,6 +5,8 @@
  * 22-12-2025
  */
 
+#pragma once
+
 // Includes STL 
 #include <memory>
 
@@ -36,7 +38,7 @@ class Vector : public Container<T> {
 
         bool push(const T& t); // Ajoute un élément au container
 
-        bool isEmpty(); // Détermine si le container est vide ou non
+        bool isEmpty() const; // Détermine si le container est vide ou non
 
         int size() const; // Retourne la taille du container
 
@@ -61,20 +63,27 @@ Vector<T>::Vector():capacity(1){
 }
 
 template <class T>
-Vector<T>::Vector(const T tab[], const int s){
+Vector<T>::Vector(const T tab[], const int s):capacity(s){
     this->s = s;
 
     std::unique_ptr<T[]> t = std::make_unique<T[]>(s);
     for (int i=0;i<s;i++){
         t[i] = tab[i];
     }
-    
     storage = std::move(t);
 }
 
 template <class T>
 Vector<T>::Vector(const Vector& other){
-    // A compléter
+    this->s = other.size();
+
+    capacity = other.capacity;
+
+    std::unique_ptr<T[]> t = std::make_unique<T[]>(this->s);
+    for (int i=0;i<this->s;i++){
+        t[i] = other.storage[i];
+    }
+    storage = std::move(t);
 }
 
 
@@ -94,7 +103,13 @@ void Vector<T>::adjust(){
 
 template <class T>
 T& Vector<T>::get_i(const int index) const{
-    // A compléter
+    if (index >= capacity){
+        throw "Out of range (capacity) !";
+    } else if (index >= this->s){
+        throw "Out of range (size) !";
+    }
+
+    return storage[index];
 }
 
 template <class T>
@@ -113,11 +128,11 @@ bool Vector<T>::push(const T& t){
     }
     storage[this->s] = t; // s-1 normalement, mais comme on ajuste la taille juste après, ca fonctionne.
     this->s++;
-    return 1;
+    return true;
 }
 
 template <class T>
-bool Vector<T>::isEmpty(){
+bool Vector<T>::isEmpty() const{
     return this->s == 0;
 }
 
@@ -141,15 +156,25 @@ void Vector<T>::print() const{
 
 template <class T>
 T& Vector<T>::operator[](int index){
-    // A compléter
+    return get_i(index);
 }
 
 template <class T>
 int Vector<T>::find(const T& t) const{
-    // A compléter
+    for (int i=0; i<this->s;i++){
+        if (storage[i]==t){
+            return i;
+        }
+    }
+    throw "Le vecteur ne contient pas l'élément";
 }
 
 template <class T>
 bool Vector<T>::contains(const T& t) const{
-    // A compléter
+    for (int i=0; i<this->s;i++){
+        if (storage[i]==t){
+            return true;
+        }
+    }
+    return false;
 }

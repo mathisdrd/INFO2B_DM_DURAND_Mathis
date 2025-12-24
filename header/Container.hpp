@@ -5,6 +5,8 @@
  * 22-12-2025
  */
 
+#pragma once
+
 template<class T>
 class Container{
     protected:
@@ -22,7 +24,7 @@ class Container{
 
         virtual bool push(const T& t) = 0; // Ajoute un élément au container
 
-        virtual bool isEmpty() = 0; // Détermine si le container est vide ou non
+        virtual bool isEmpty() const = 0; // Détermine si le container est vide ou non
 
         virtual int size() const = 0; // Retourne la taille du container
 
